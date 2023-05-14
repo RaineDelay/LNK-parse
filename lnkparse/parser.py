@@ -1,9 +1,15 @@
 
-results = {}
+# I'm planning on adding the print statements after, not sure if I should do that as the file is parsed or if I should save 
+# the results and format the printing later.
+
 def extract(fd):
     with open(fd, "rb"):
         header_size = int.from_bytes(fd.read(4), "little")
         results["header_size"] = header_size
+        CLSID = fd.read(16)                                 # write the check and formatting later probably save as a string
+        set_flags = get_flags(fd.read(4))                   # flags in this list are true, any other flag is inherently false
+
+
 
 
 def get_flags(byte_arr):
@@ -17,4 +23,7 @@ def get_flags(byte_arr):
                  "DisableLinkPathTracking", "DisableKnownFolderTracking", "DisableKnownFolderAlias",
                  "AllowLinkToLink", "UnaliasOnSave", "PreferEnivronmentPath", "KeepLocalIDListForUNCTarget"
                 ]
+   set_flags = [flag for i, flag in enumerate(flag_list) if (flag_list[i // 8] & (1 << (7 - (i % 8)))) > 0]
+   return set_flags
+    
 
