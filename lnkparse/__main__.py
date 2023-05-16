@@ -1,9 +1,14 @@
 import argparse
-from parser import *
+from parser import extract
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("filepath", type=str, help="Parse the specified .lnk file or .lnk files within a directory")
+    parser.add_argument(
+        "filepath",
+        type=str,
+        help="Parse the specified .lnk file or .lnk files within a directory",
+    )
     args = parser.parse_args()
     extract(args.filepath)
 
