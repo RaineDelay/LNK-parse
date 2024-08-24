@@ -1,9 +1,7 @@
 # LNK-parse
 A small CLI tool for parsing the metadata from .lnk files
 
-The tool currently takes a single .lnk file's local path as input and
-I have not made this its own package yet so currently it's called by
-doing "Python3 __main__.py " plus the filepath
+The tool currently takes a single .lnk file's local path as input
 
 It's currently only capable of parsing the header size, link flags,
 link attributes, and the creation/access/write times
