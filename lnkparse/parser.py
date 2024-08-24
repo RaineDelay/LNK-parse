@@ -1,5 +1,5 @@
 import struct
-from datetime import datetime
+from datetime import datetime, timezone
 
 utc_start = datetime.fromisoformat("1970-01-01")
 results = {}
@@ -82,7 +82,7 @@ def get_flags(byte_arr):
     set_flags = [
         flag
         for i, flag in enumerate(flag_list)
-        if (byte_arr[i // 8] & (1 << (i % 8))) > 0
+        if (byte_arr[i // 8] & (1 << (i % 8))) > 0 
     ]
     return set_flags
 
@@ -122,9 +122,10 @@ def get_attributes(byte_arr):
 
 def time_calc(byte_arr):
     micro = struct.unpack("<q", byte_arr)[0]
-    result = datetime.fromtimestamp(micro / 10000000.0 - 11644473600).strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )
+    # result = datetime.fromtimestamp(micro / 10000000 - 11644473600).strftime(
+    #     "%Y-%m-%d %H:%M:%S"
+    # )
+    result = datetime.fromtimestamp(((micro-116444736000000000)/10000000), tz=timezone.utc)
     return result
 
 
